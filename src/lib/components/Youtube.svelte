@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
-	import PlayerStates from 'youtube-player/dist/constants/PlayerStates'
-	import type { YouTubePlayer, Options as YoutubePlayerOptions } from 'youtube-player/dist/types'
+	import PlayerStates from 'youtube-player/dist/constants/PlayerStates.js'
+	import type { YouTubePlayer, Options as YoutubePlayerOptions } from 'youtube-player/dist/types.js'
 
 	export { PlayerStates, YoutubePlayerOptions }
 </script>

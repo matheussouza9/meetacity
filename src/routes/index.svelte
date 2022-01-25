@@ -8,6 +8,8 @@
 
 	let options: YoutubePlayerOptions = {
 		videoId,
+		width: '100%',
+		height: '100%',
 		playerVars: {
 			autoplay: 1,
 			enablejsapi: 1,
@@ -28,20 +30,18 @@
 	}
 </script>
 
-
+{#if !isPlaying}
+	<!-- <div in:fade out:fade={{ duration: 500, delay: 2800 }} class="cortina" /> -->
+	<div transition:fade class="cortina" />
+{/if}
 
 <div class="iframe-wrapper">
-	{#if !isPlaying}
-		<!-- <div in:fade out:fade={{ duration: 500, delay: 2800 }} class="cortina" /> -->
-		<div transition:fade class="cortina" />
-	{/if}
-
 	<YouTube id="yt-iframe" {videoId} {volume} {options} on:stateChange={onStateChange} />
 </div>
 
 <style>
 	.iframe-wrapper {
-		position: fixed;
+		position: absolute;
 		top: 0;
 		left: 0;
 		bottom: 0;
@@ -54,12 +54,16 @@
 	}
 	:global(#yt-iframe) {
 		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
 		height: 100%;
-		width: 300%;
-		left: -100%;
 	}
 
 	.cortina {
+		position: fixed;
+		top: 0;
+		left: 0;
 		width: 100%;
 		height: 100%;
 		display: flex;
@@ -67,5 +71,28 @@
 		justify-content: center;
 		background-color: grey;
 		z-index: -1;
+	}
+
+	@media (min-aspect-ratio: 16 / 9) {
+		.iframe-wrapper {
+			height: 300%;
+			top: -100%;
+		}
+	}
+
+	@media (max-aspect-ratio: 16 / 9) {
+		.iframe-wrapper {
+			width: 300%;
+			left: -100%;
+		}
+	}
+
+	@media all and (display-mode: fullscreen) {
+		.iframe-wrapper {
+			width: 100%;
+			height: 100%;
+			left: 0;
+			top: 0;
+		}
 	}
 </style>
